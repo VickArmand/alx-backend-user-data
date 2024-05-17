@@ -84,3 +84,29 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
                                    user=user,
                                    password=password,
                                    database=db)
+
+
+def main() -> None:
+    """
+    The function will obtain a database connection using get_db and
+    retrieve all rows in the users table and display each row
+    """
+    db = get_db()
+    cursor = db.cursor()
+    fields = ('name', 'email', 'phone', 'ssn', 'password',
+              'ip', 'last_login', 'user_agent')
+    columns = 'name, email, phone, ssn, password, ip, last_login, user_agent'
+    query = f"SELECT {columns} FROM users"
+    cursor.execute(query)
+    results = cursor.fetchall()
+    logger = get_logger()
+    for result in results:
+        log = ''
+        for i in range(len(fields)):
+            log += f'{fields[i]}={result[i]};'
+        logger.info(RedactingFormatter(PII_FIELDS).format(log))
+    cursor.close()
+
+
+if __name__ == "__main__":
+    main()

@@ -2,6 +2,7 @@
 """auth module has the class Auth"""
 from flask import request
 from typing import TypeVar, List
+import re
 
 
 class Auth:
@@ -13,6 +14,11 @@ class Auth:
         """
         if path is None or excluded_paths is None or len(excluded_paths) == 0:
             return True
+        if '*' in path:
+            for excluded_path in excluded_paths:
+                match_obj = re.search(path, excluded_path)
+                if match_obj:
+                    return False
         if path[-1] != '/':
             path = path + '/'
         if path in excluded_paths:

@@ -21,6 +21,7 @@ if auth:
     else:
         from api.v1.auth.auth import Auth
         auth = Auth()
+request.current_user = auth.current_user(request)
 
 
 @app.before_request

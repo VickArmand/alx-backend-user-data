@@ -15,7 +15,6 @@ CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 auth = None
 auth = os.getenv('AUTH_TYPE')
 if auth:
-    request.current_user = auth.current_user(request)
     if auth == 'basic_auth':
         from api.v1.auth.basic_auth import BasicAuth
         auth = BasicAuth()
@@ -36,6 +35,7 @@ def before_request():
                 abort(401)
             if auth.current_user(request) is None:
                 abort(403)
+    request.current_user = auth.current_user(request)
 
 
 @app.errorhandler(404)

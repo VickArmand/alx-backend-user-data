@@ -14,9 +14,9 @@ class Auth:
         """
         if path is None or excluded_paths is None or len(excluded_paths) == 0:
             return True
-        if '*' in path:
-            for excluded_path in excluded_paths:
-                match_obj = re.search(path, excluded_path)
+        for excluded_path in excluded_paths:
+            if '*' in excluded_path:
+                match_obj = re.search(excluded_path, path)
                 if match_obj:
                     return False
         if path[-1] != '/':

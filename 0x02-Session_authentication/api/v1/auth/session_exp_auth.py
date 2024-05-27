@@ -18,7 +18,7 @@ class SessionExpAuth(SessionAuth):
             self.session_duration = 0
 
     def create_session(self, user_id=None):
-        """"""
+        """creates a session"""
         session = super().create_session(user_id)
         if not session:
             return None

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Module of Users views
+""" session_auth module
 """
 from api.v1.views import app_views
 from flask import abort, jsonify, request
@@ -30,6 +30,7 @@ def login():
     response = jsonify(users[0].to_json())
     response.set_cookie(cookie_name, session_id)
     return response
+
 
 @app_views.route('/auth_session/logout',
                  methods=['POST'],

@@ -24,6 +24,9 @@ if auth:
     elif auth == 'ssession_exp_auth':
         from api.v1.auth.session_exp_auth import SessionExpAuth
         auth = SessionExpAuth()
+    elif auth == 'ssession_db_auth':
+        from api.v1.auth.session_db_auth import SessionDBAuth
+        auth = SessionDBAuth()
     else:
         from api.v1.auth.auth import Auth
         auth = Auth()

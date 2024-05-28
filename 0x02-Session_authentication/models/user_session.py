@@ -7,10 +7,10 @@ from models.base import Base
 class UserSession(Base):
     """inherits from Base"""
 
-    def __init__(self, *args: list,
-                 user_id: str,
+    def __init__(self, *args: list, user_id: str,
                  session_id: str,
-                 **kwargs: dict):
+                 **kwargs: dict
+                 ):
         """initialize"""
         super().__init__(*args, **kwargs)
         self.email = kwargs.get('email')

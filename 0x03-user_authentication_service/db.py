@@ -41,7 +41,7 @@ class DB:
         return new_user
 
     def find_user_by(self, **kwargs) -> User:
-        """"""
+        """locate the user to update"""
         try:
             record = self._session.query(User).filter_by(**kwargs).one()
             return record

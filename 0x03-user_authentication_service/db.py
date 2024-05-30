@@ -40,7 +40,7 @@ class DB:
         self._session.commit()
         return new_user
 
-    def find_user_by(self, **kwargs) -> Tuple:
+    def find_user_by(self, **kwargs) -> User:
         """"""
         try:
             record = self._session.query(User).filter_by(**kwargs).one()

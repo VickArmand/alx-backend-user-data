@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-""""""
+"""app module starts the flask app
+and contains routes"""
 from flask import Flask, jsonify, request
 from auth import Auth
 app = Flask(__name__)

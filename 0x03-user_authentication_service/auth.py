@@ -90,7 +90,11 @@ class Auth:
         The method updates the corresponding
         user’s session ID to None.
         """
-        user = self._db.find_user_by(id=user_id)
-        if user.session_id:
-            self._db.update_user(user_id, session_id=None)
-        return None
+        try:
+            user = self._db.find_user_by(id=user_id)
+            if user.session_id:
+                self._db.update_user(user_id, session_id=None)
+        except (NoResultFound, InvalidRequestError):
+            pass
+        finally:
+            return None

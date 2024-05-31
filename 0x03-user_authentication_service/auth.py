@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """auth module"""
 import bcrypt
-from db import DB
+from db import DB, User
 from sqlalchemy.orm.exc import NoResultFound
 
 
@@ -19,7 +19,7 @@ class Auth:
         """initialize"""
         self._db = DB()
 
-    def register_user(self, email: str, password: str) -> None:
+    def register_user(self, email: str, password: str) -> User:
         """
         If a user already exist with the passed email,
         raise a ValueError with the message

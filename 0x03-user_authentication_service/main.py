@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""main module"""
+"""main module with
+End-to-end integration test
+"""
 import requests
 
 

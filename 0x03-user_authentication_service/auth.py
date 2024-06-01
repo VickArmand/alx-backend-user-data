@@ -134,9 +134,9 @@ class Auth:
         except (NoResultFound, InvalidRequestError):
             pass
         if user:
-            hashed_pwd = _hash_password(password)
+            hashed_pwd = _hash_password(password).decode('utf-8')
             self._db.update_user(user.id,
-                                 password=hashed_pwd,
+                                 hashed_password=hashed_pwd,
                                  reset_token=None)
             return None
         raise ValueError

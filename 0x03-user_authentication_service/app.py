@@ -20,7 +20,7 @@ def users() -> str:
     password = request.form.get("password")
     try:
         AUTH.register_user(email, password)
-        return jsonify({"email": f"{email}", "message": "user created"})
+        return jsonify({"email": email, "message": "user created"})
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
 
@@ -34,7 +34,7 @@ def login() -> str:
     if not is_valid:
         abort(401)
     session_id = AUTH.create_session(email)
-    response = jsonify({"email": "{email}", "message": "logged in"})
+    response = jsonify({"email": email, "message": "logged in"})
     response.set_cookie("session_id", session_id)
     return response
 
@@ -46,7 +46,7 @@ def logout() -> str:
     user = AUTH.get_user_from_session_id(session_id)
     if user:
         AUTH.destroy_session(session_id)
-        return redirect('/')
+        return redirect('/'), 302
     else:
         abort(403)
 

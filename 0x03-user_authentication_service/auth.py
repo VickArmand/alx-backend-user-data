@@ -128,12 +128,15 @@ class Auth:
         hashed_password field with the new hashed password
         and the reset_token field to None.
         """
+        user = None
         try:
             user = self._db.find_user_by(reset_token=reset_token)
         except (NoResultFound, InvalidRequestError):
-            user = None
+            pass
         if user:
-            hashed_pwd = _hash_password(password).decode('utf-8')
-            self._db.update_user(user.id, password=hashed_pwd, reset_token=None)
+            hashed_pwd = _hash_password(password)
+            self._db.update_user(user.id,
+                                 password=hashed_pwd,
+                                 reset_token=None)
             return None
         raise ValueError

@@ -98,3 +98,6 @@ class Auth:
             pass
         finally:
             return None
+
+    def get_reset_password_token(self, email: str) -> str:
+        """"""

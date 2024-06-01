@@ -67,6 +67,30 @@ def profile():
     abort(403)
 
 
+@app.route('/reset_password', methods=['PUT'], strict_slashes=False)
+def update_password():
+    """
+    respond to the PUT /reset_password route.
+    The request is expected to contain form data with fields
+    "email", "reset_token" and "new_password".
+    Update the password.
+    If the token is invalid, catch the exception
+    and respond with a 403 HTTP code.
+    If the token is valid, respond with a 200 HTTP code
+    and the following JSON payload:
+    {"email": "<user email>", "message": "Password updated"}
+    """
+    email = request.form.get("email")
+    token = request.form.get("reset_token")
+    new_password = request.form.get("new_password")
+    try:
+        AUTH.update_password(token, new_password)
+        return jsonify({"email": f"{email}",
+                        "message": "Password updated"}), 200
+    except ValueError:
+        abort(403)
+
+
 @app.route('/reset_password', methods=['POST'], strict_slashes=False)
 def get_reset_password_token():
     """

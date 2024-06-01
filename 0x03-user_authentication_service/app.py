@@ -8,13 +8,13 @@ AUTH = Auth()
 
 
 @app.route('/', methods=['GET'], strict_slashes=False)
-def home():
+def home() -> str:
     """home page"""
     return jsonify({"message": "Bienvenue"})
 
 
 @app.route('/users', methods=['POST'], strict_slashes=False)
-def users():
+def users() -> str:
     """end-point to register a user"""
     email = request.form.get("email")
     password = request.form.get("password")
@@ -26,7 +26,7 @@ def users():
 
 
 @app.route('/sessions', methods=['POST'], strict_slashes=False)
-def login():
+def login() -> str:
     """function to respond to the POST /sessions route"""
     email = request.form.get('email')
     password = request.form.get('password')
@@ -40,7 +40,7 @@ def login():
 
 
 @app.route('/sessions', methods=['DELETE'], strict_slashes=False)
-def logout():
+def logout() -> str:
     """ respond to the DELETE /sessions route"""
     session_id = request.cookies.get("session_id")
     user = AUTH.get_user_from_session_id(session_id)
@@ -52,7 +52,7 @@ def logout():
 
 
 @app.route('/profile', methods=['GET'], strict_slashes=False)
-def profile():
+def profile() -> str:
     """
     respond to the GET /profile route.
     The request is expected to contain a session_id cookie.
@@ -68,7 +68,7 @@ def profile():
 
 
 @app.route('/reset_password', methods=['PUT'], strict_slashes=False)
-def update_password():
+def update_password() -> str:
     """
     respond to the PUT /reset_password route.
     The request is expected to contain form data with fields
@@ -85,14 +85,14 @@ def update_password():
     new_password = request.form.get("new_password")
     try:
         AUTH.update_password(token, new_password)
-        return jsonify({"email": f"{email}",
+        return jsonify({"email": email,
                         "message": "Password updated"}), 200
     except ValueError:
         abort(403)
 
 
 @app.route('/reset_password', methods=['POST'], strict_slashes=False)
-def get_reset_password_token():
+def get_reset_password_token() -> str:
     """
     respond to the POST /reset_password route.
     The request is expected to contain form data with the "email" field.

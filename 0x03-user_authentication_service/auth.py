@@ -108,7 +108,10 @@ class Auth:
         and update the user’s reset_token database field.
         Return the token.
         """
-        user = self._db.find_user_by(email=email)
+        try:
+            user = self._db.find_user_by(email=email)
+        except (NoResultFound, InvalidRequestError):
+            user = None
         if user is not None:
             token = _generate_uuid()
             self._db.update_user(user.id, reset_token=token)

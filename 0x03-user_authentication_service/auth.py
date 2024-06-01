@@ -133,5 +133,6 @@ class Auth:
             hashed_pwd = _hash_password(password).decode('utf-8')
             self._db.update_user(user.id, password=hashed_pwd,
                                  reset_token=None)
+            return None
         except (NoResultFound, InvalidRequestError, ValueError):
             raise ValueError

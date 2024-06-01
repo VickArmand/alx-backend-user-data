@@ -4,7 +4,7 @@ import requests
 
 
 def register_user(email: str, password: str) -> None:
-    """"""
+    """registration test"""
     response = requests.post('http://localhost:5000/users',
                              {"email": email,
                               "password": password})
@@ -18,7 +18,7 @@ def register_user(email: str, password: str) -> None:
 
 
 def log_in_wrong_password(email: str, password: str) -> None:
-    """"""
+    """incorrect login test"""
     response = requests.post('http://localhost:5000/sessions',
                              {"email": email,
                               "password": password})
@@ -26,7 +26,7 @@ def log_in_wrong_password(email: str, password: str) -> None:
 
 
 def log_in(email: str, password: str) -> str:
-    """"""
+    """log in test"""
     response = requests.post('http://localhost:5000/sessions',
                              {"email": email,
                               "password": password})
@@ -38,13 +38,13 @@ def log_in(email: str, password: str) -> str:
 
 
 def profile_unlogged() -> None:
-    """"""
+    """unauthorized profile access test"""
     response = requests.get('http://localhost:5000/profile')
     assert response.status_code == 403
 
 
 def profile_logged(session_id: str) -> None:
-    """"""
+    """profile access test"""
     response = requests.get('http://localhost:5000/profile',
                             cookies={'session_id': session_id})
     assert response.status_code == 200
@@ -53,14 +53,14 @@ def profile_logged(session_id: str) -> None:
 
 
 def log_out(session_id: str) -> None:
-    """"""
+    """log out test"""
     response = requests.delete('http://localhost:5000/sessions',
                                cookies={'session_id': session_id})
     assert response.status_code == 200
 
 
 def reset_password_token(email: str) -> str:
-    """"""
+    """reset password token test"""
     response = requests.post('http://localhost:5000/reset_password',
                              {"email": email})
     assert response.status_code == 200
@@ -71,7 +71,7 @@ def reset_password_token(email: str) -> str:
 
 
 def update_password(email: str, reset_token: str, new_password: str) -> None:
-    """"""
+    """update password test"""
     params = {"email": email,
               "reset_token": reset_token,
               "new_password": new_password}

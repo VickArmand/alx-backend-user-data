@@ -21,10 +21,10 @@ if auth:
     elif auth == 'session_auth':
         from api.v1.auth.session_auth import SessionAuth
         auth = SessionAuth()
-    elif auth == 'ssession_exp_auth':
+    elif auth == 'session_exp_auth':
         from api.v1.auth.session_exp_auth import SessionExpAuth
         auth = SessionExpAuth()
-    elif auth == 'ssession_db_auth':
+    elif auth == 'session_db_auth':
         from api.v1.auth.session_db_auth import SessionDBAuth
         auth = SessionDBAuth()
     else:
